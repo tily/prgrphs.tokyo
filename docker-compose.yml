@@ -112,3 +112,16 @@ services:
     ports:
       - "8084:8084"
     command: bundle exec rackup -p 8084 -o 0.0.0.0
+
+  hvtg:
+    build: ~/hvtg/
+    container_name: hvtg
+    restart: always
+    environment:
+      - RACK_ENV=production
+      - VIRTUAL_HOST=hvtg.prgrphs.tokyo
+      - LETSENCRYPT_HOST=hvtg.prgrphs.tokyo
+      - PORT=8085
+    env_file: ~/prgrphs.tokyo-private/env_files/hvtg
+    ports:
+      - "8085:8085"
