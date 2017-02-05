@@ -41,6 +41,14 @@ services:
     volumes:
       - /data/mongo/db:/data/db
 
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /data/redis/db:/data/
+
   relayr:
     build: ~/relayr/
     container_name: relayr
