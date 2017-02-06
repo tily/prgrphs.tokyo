@@ -103,6 +103,7 @@ services:
       - VIRTUAL_HOST=one.prgrphs.tokyo
       - MONGOHQ_URL=mongodb://mongo/one_production
       - LETSENCRYPT_HOST=one.prgrphs.tokyo
+      - REDISTOGO_URL=redis://redis:6379
     env_file: ~/prgrphs.tokyo-private/env_files/one
     ports:
       - "8080:8080"
