@@ -108,6 +108,21 @@ services:
       - "8080:8080"
     command: bundle exec rackup -p 8080 -o 0.0.0.0
 
+  one-worker:
+    build: ~/prgrphs1/
+    container_name: one-worker
+    restart: always
+    environment:
+      - RACK_ENV=production
+      - VIRTUAL_HOST=one.prgrphs.tokyo
+      - MONGOHQ_URL=mongodb://mongo/one_production
+      - LETSENCRYPT_HOST=one.prgrphs.tokyo
+      - REDISTOGO_URL=redis://redis:6379
+      - VVERBOSE=1
+      - QUEUE=*
+    env_file: ~/prgrphs.tokyo-private/env_files/one
+    command: bash -c "rm /tmp/.X99-lock || echo 'Lock not found, continuing normal setup' && xvfb-run bundle exec rake resque:work"
+
   decks:
     build: ~/decks/
     container_name: decks
