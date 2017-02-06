@@ -119,7 +119,7 @@ services:
       - MONGOHQ_URL=mongodb://mongo/one_production
       - LETSENCRYPT_HOST=one.prgrphs.tokyo
       - REDISTOGO_URL=redis://redis:6379
-      - VVERBOSE=1
+      - VERBOSE=1
       - QUEUE=*
     env_file: ~/prgrphs.tokyo-private/env_files/one
     command: bash -c "rm /tmp/.X99-lock || echo 'Lock not found, continuing normal setup' && xvfb-run bundle exec rake resque:work"
