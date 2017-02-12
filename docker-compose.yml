@@ -94,34 +94,34 @@ services:
       - "8082:8082"
     command: bundle exec rackup -p 8082 -o 0.0.0.0
 
-  one:
+  prgrphs:
     build: ~/prgrphs/
     container_name: one
     restart: always
     environment:
       - RACK_ENV=production
-      - VIRTUAL_HOST=one.prgrphs.tokyo
+      - VIRTUAL_HOST=prgrphs.tokyo
       - MONGOHQ_URL=mongodb://mongo/prgrphs_production
-      - LETSENCRYPT_HOST=one.prgrphs.tokyo
+      - LETSENCRYPT_HOST=prgrphs.tokyo
       - REDISTOGO_URL=redis://redis:6379
-    env_file: ~/prgrphs.tokyo-private/env_files/one
+    env_file: ~/prgrphs.tokyo-private/env_files/prgrphs
     ports:
       - "8080:8080"
     command: bundle exec rackup -p 8080 -o 0.0.0.0
 
-  one-worker:
+  prgrphs-worker:
     build: ~/prgrphs/
-    container_name: one-worker
+    container_name: prgrphs-worker
     restart: always
     environment:
       - RACK_ENV=production
-      - VIRTUAL_HOST=one.prgrphs.tokyo
+      - VIRTUAL_HOST=prgrphs.tokyo
       - MONGOHQ_URL=mongodb://mongo/one_production
-      - LETSENCRYPT_HOST=one.prgrphs.tokyo
+      - LETSENCRYPT_HOST=prgrphs.tokyo
       - REDISTOGO_URL=redis://redis:6379
       - VERBOSE=1
       - QUEUE=*
-    env_file: ~/prgrphs.tokyo-private/env_files/one
+    env_file: ~/prgrphs.tokyo-private/env_files/prgrphs
     command: bash -c "rm /tmp/.X99-lock || echo 'Lock not found, continuing normal setup' && xvfb-run bundle exec rake resque:work"
 
   decks:
