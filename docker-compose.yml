@@ -152,7 +152,7 @@ services:
     command: bash -c "node_modules/.bin/gulp build && node_modules/.bin/coffee server.coffee"
 
   mongo-s3-backup:
-    build: ~/mongo-s3-backup/
+    image: tily/mongo-s3-backup
     container_name: mongo-s3-backup
     restart: always
     env_file: ~/prgrphs.tokyo-private/env_files/mongo-s3-backup
