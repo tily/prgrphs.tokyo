@@ -116,7 +116,7 @@ services:
     environment:
       - RACK_ENV=production
       - VIRTUAL_HOST=prgrphs.tokyo
-      - MONGOHQ_URL=mongodb://mongo/one_production
+      - MONGOHQ_URL=mongodb://mongo/prgrphs_production
       - LETSENCRYPT_HOST=prgrphs.tokyo
       - REDISTOGO_URL=redis://redis:6379
       - VERBOSE=1
