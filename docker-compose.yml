@@ -10,8 +10,7 @@ services:
       - /etc/nginx/conf.d
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
-      - ~/prgrphs.tokyo-private/certs:/etc/nginx/certs:ro
-
+      - ~/prgrphs.tokyo-private/certs:/etc/nginx/certs:ro 
   dockergen:
     image: jwilder/docker-gen
     container_name: dockergen
@@ -164,3 +163,42 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - /var/lib/docker:/var/lib/docker:rw
+
+  breakfast:
+    image: publysher/hugo
+    volumes:
+      - ~/breakfast:/usr/share/blog
+    container_name: breakfast
+    environment:
+      - VIRTUAL_HOST=breakfast.prgrphs.tokyo
+      - LETSENCRYPT_HOST=breakfast.prgrphs.tokyo
+    restart: always
+    command: hugo server --bind=0.0.0.0 --disableLiveReload
+    ports:
+      - "1313:1313"
+
+  illmatic:
+    image: publysher/hugo
+    volumes:
+      - ~/illmatic:/usr/share/blog
+    container_name: illmatic
+    environment:
+      - VIRTUAL_HOST=illmatic.prgrphs.tokyo
+      - LETSENCRYPT_HOST=illmatic.prgrphs.tokyo
+    restart: always
+    command: hugo server --bind=0.0.0.0 --disableLiveReload
+    ports:
+      - "1314:1313"
+
+  fukuwarai:
+    build: ~/fukuwarai
+    volumes:
+      - ~/fukuwarai:/usr/local/app
+    container_name: fukuwarai
+    environment:
+      - VIRTUAL_HOST=fukuwarai.prgrphs.tokyo
+      - LETSENCRYPT_HOST=fukuwarai.prgrphs.tokyo
+    restart: always
+    command: rackup -p 9292 -o 0.0.0.0
+    ports:
+      - "1315:9292"
